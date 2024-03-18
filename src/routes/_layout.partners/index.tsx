@@ -1,4 +1,4 @@
-import { Box, Group, Modal, TextInput } from '@mantine/core'
+import { ActionIcon, Box, Group, Modal, TextInput } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { useQuery } from '@tanstack/react-query'
 import {
@@ -14,6 +14,8 @@ import classes from '@/components/table/Table.module.css'
 import { List } from '@/components/crud/list'
 import { partnersQueryOptions } from '@/apis/queryOptions'
 import { PartnerCreate } from './-components/create'
+import { Eye } from '@phosphor-icons/react'
+import { Partner } from '@/validators/partner'
 
 const partnersSearchSchema = object({
   page: fallback(number(), 1),
@@ -42,6 +44,7 @@ const routeApi = getRouteApi('/_layout/partners/')
 function ListComponent() {
   const navigate = useNavigate({ from: Route.fullPath })
   const [opened, { open, close }] = useDisclosure(false)
+
   const { page, searchValue } = routeApi.useSearch()
   const [searchValueDraft, setSearchValueDraft] = useState(searchValue ?? '')
 
@@ -77,6 +80,21 @@ function ListComponent() {
     {
       accessor: 'notes',
       title: 'Ghi chú',
+    },
+    {
+      accessor: 'actions',
+      title: 'Hành động',
+      render: (partner: Partner) => (
+        <Group>
+          <ActionIcon
+            size="sm"
+            variant="light"
+            onClick={() => navigate({ to: `/partners/${partner.id}` })}
+          >
+            <Eye size={12} weight="bold" />
+          </ActionIcon>
+        </Group>
+      ),
     },
   ]
 

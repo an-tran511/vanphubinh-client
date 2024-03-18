@@ -21,5 +21,5 @@ export const PartnerInputSchema = object({
 })
 
 export type Partner = Input<typeof PartnerInputSchema> & {
-  id: number
+  id: string
 }
