@@ -49,7 +49,7 @@ function Login() {
     onSuccess: (data) => {
       flushSync(() => {
         auth.setUser(
-          { email: data?.user?.email, name: data?.user.fullName } || null,
+          { email: data?.user?.email, name: data?.user.name } || null,
         )
       })
       navigate({ to: search.redirect })

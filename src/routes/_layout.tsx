@@ -8,7 +8,7 @@ import { AppShell, Burger, Group, em } from '@mantine/core'
 import { useDisclosure, useMediaQuery } from '@mantine/hooks'
 import { useSwipeable } from 'react-swipeable'
 import { useEffect } from 'react'
-// import { NavbarNested } from '@/components/nested-nav'
+import { NavbarNested } from '@/components/nested-nav'
 
 export const Route = createFileRoute('/_layout')({
   component: Layout,
@@ -66,7 +66,9 @@ function Layout() {
           </Group>
         </AppShell.Header>
         <AppShell.Navbar p="0">
-          <div {...handlers}>{/* <NavbarNested /> */}</div>
+          <div {...handlers}>
+            <NavbarNested />
+          </div>
         </AppShell.Navbar>
         <AppShell.Main h="100dvh" bg="white">
           <Outlet />

@@ -11,6 +11,6 @@ export type AuthResponse = {
   success: boolean
   user: {
     email: string
-    username: string
+    name: string
   }
 }
