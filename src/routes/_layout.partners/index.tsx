@@ -16,6 +16,7 @@ import { partnersQueryOptions } from '@/apis/queryOptions'
 import { PartnerCreate } from './-components/create'
 import { Eye } from '@phosphor-icons/react'
 import { Partner } from '@/validators/partner'
+import { DataTableColumnTextAlign } from 'mantine-datatable'
 
 const partnersSearchSchema = object({
   page: fallback(number(), 1),
@@ -60,6 +61,8 @@ function ListComponent() {
     {
       accessor: 'id',
       title: 'Mã đối tác',
+      textAlign: 'right' as DataTableColumnTextAlign,
+      width: '8%',
     },
     {
       accessor: 'name',
@@ -125,7 +128,7 @@ function ListComponent() {
 
   return (
     <List title="Đối tác" onCreateHandler={open} pagination={pagination}>
-      <Box py="md" px="lg" bg="white">
+      <Box px={{ base: 'lg', md: 'xl' }} py="md" bg="white">
         <Group>
           <TextInput
             visibleFrom="md"
