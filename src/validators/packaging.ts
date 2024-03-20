@@ -12,7 +12,7 @@ export const PackagingInputSchema = merge([
     }),
   }),
 ])
-export type Packaging = Input<typeof PackagingInputSchema>
+export type Packaging = Input<typeof PackagingInputSchema> & { id: string }
 export type PackagingAttributesInput = Partial<
   Input<typeof PackagingInputSchema>['attributes']
 >

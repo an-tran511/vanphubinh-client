@@ -118,7 +118,11 @@ function ListComponent() {
   const debounced = useDebouncedCallback(handleSearch, 500)
 
   return (
-    <List title="Bao bì" onCreateHandler={open} pagination={pagination}>
+    <List
+      title="Bao bì"
+      onCreateHandler={() => navigate({ to: '/packagings/create' })}
+      pagination={pagination}
+    >
       <Box px={{ base: 'lg', md: 'xl' }} py="md" bg="white">
         <Group>
           <TextInput
