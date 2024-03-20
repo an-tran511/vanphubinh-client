@@ -87,7 +87,7 @@ function UpdateComponent() {
         }}
       >
         <Show
-          title="Tạo bao bì"
+          title="Bao bì"
           savingState={isPending}
           reset={methods.reset}
           isDirty={methods.formState.isDirty}
