@@ -1,6 +1,6 @@
 import { keepPreviousData, queryOptions } from '@tanstack/react-query'
 import { getPartners, findPartnerById } from './partner'
-import { getPackagings } from './packaging'
+import { getPackagings, findPackagingById } from './packaging'
 
 export const partnersQueryOptions = ({ deps }: { deps: string | object }) =>
   queryOptions({
@@ -21,4 +21,9 @@ export const packagingsQueryOptions = ({ deps }: { deps: string | object }) =>
     queryFn: () => getPackagings(deps),
     placeholderData: keepPreviousData,
     select: (data) => data,
+  })
+export const findPackagingByIdQueryOptions = ({ id }: { id: string }) =>
+  queryOptions({
+    queryKey: ['packagings', id],
+    queryFn: () => findPackagingById(id),
   })
