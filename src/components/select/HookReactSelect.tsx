@@ -65,6 +65,10 @@ export function HookReactSelect<T extends FieldValues>({
       ...base,
       fontSize: '0.88rem',
     }),
+    placeholder: (base) => ({
+      ...base,
+      textWrap: 'nowrap',
+    }),
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     option: (base: any, { isDisabled, isFocused, isSelected }) => ({
       ...base,
@@ -99,8 +103,13 @@ export function HookReactSelect<T extends FieldValues>({
           styles={stylesBase}
           value={value}
           placeholder="Chọn hoặc nhập..."
-          onChange={(e) => {
-            fieldOnChange(e)
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          onChange={(e: any) => {
+            if (e?.id === value?.id) {
+              fieldOnChange(null)
+            } else {
+              fieldOnChange(e)
+            }
           }}
           className=".m-4081bf90"
           theme={(theme) => ({
