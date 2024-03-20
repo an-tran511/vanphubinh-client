@@ -5,6 +5,7 @@ import { Textarea } from 'react-hook-form-mantine'
 import { Packaging } from '@/validators/packaging'
 import accClasses from '@/components/accordion/Accordion.module.css'
 import { GeneralSection } from '@/routes/_layout.items/-components/GeneralSection'
+import { PackagingAttributesSection } from './PackagingAttributesSection'
 
 interface PackagingFormProps {
   control: Control<Packaging>
@@ -67,6 +68,16 @@ export function PackagingForm(props: PackagingFormProps) {
               </Accordion.Control>
               <Accordion.Panel>
                 <GeneralSection control={control} />
+              </Accordion.Panel>
+            </Accordion.Item>
+            <Accordion.Item value="general">
+              <Accordion.Control>
+                <Text fw="500" size="sm" c="">
+                  Thông số khác
+                </Text>
+              </Accordion.Control>
+              <Accordion.Panel>
+                <PackagingAttributesSection control={control} />
               </Accordion.Panel>
             </Accordion.Item>
           </Accordion>

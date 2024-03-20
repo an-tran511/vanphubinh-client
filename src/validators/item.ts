@@ -6,20 +6,39 @@ import {
   string,
   merge,
   boolean,
+  required,
+  optional,
+  omit,
 } from 'valibot'
 import { PartnerInputSchema } from '@/validators/partner'
 import { UomInputSchema } from '@/validators/uom'
+import { ItemCategoryInputSchema } from './itemCategory'
 
 export const ItemInputSchema = object({
   name: string([minLength(1, 'Trường bắt buộc')]),
-  uom: merge([UomInputSchema, object({ id: string() })]),
-  customer: nullable(merge([PartnerInputSchema, object({ id: string() })])),
-  itemCategory: nullable(string([minLength(1, 'Giá trị không hợp lệ')])),
-  defaultSupplier: nullable(string([minLength(1, 'Giá trị không hợp lệ')])),
-  notes: string(),
+  uom: required(
+    merge([UomInputSchema, object({ id: string() })]),
+    'Trường bắt buộc',
+  ),
+  customer: nullable(
+    merge([
+      omit(PartnerInputSchema, ['address', 'email', 'notes', 'phone']),
+      object({ id: string() }),
+    ]),
+  ),
+  itemCategory: nullable(
+    merge([ItemCategoryInputSchema, object({ id: string() })]),
+  ),
+  defaultSupplier: nullable(
+    merge([
+      omit(PartnerInputSchema, ['address', 'email', 'notes', 'phone']),
+      object({ id: string() }),
+    ]),
+  ),
+  notes: optional(string(), ''),
   isStockable: boolean(),
   itemCode: string(),
-  // attributes: nullable(object({})),
+  attributes: nullable(object({})),
 })
 
 export const UpdateItemInputSchema = merge([
