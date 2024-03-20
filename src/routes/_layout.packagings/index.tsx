@@ -1,11 +1,11 @@
-import { ActionIcon, Box, Group, TextInput } from '@mantine/core'
+import { ActionIcon, Box, Group, TextInput, Text } from '@mantine/core'
 import { useQuery } from '@tanstack/react-query'
 import {
   createFileRoute,
   getRouteApi,
   useNavigate,
 } from '@tanstack/react-router'
-import { DataTable } from 'mantine-datatable'
+import { DataTable, DataTableColumnTextAlign } from 'mantine-datatable'
 import { useState } from 'react'
 import { useDebouncedCallback } from 'use-debounce'
 import { fallback, number, object, parse, string } from 'valibot'
@@ -57,10 +57,23 @@ function ListComponent() {
     {
       accessor: 'itemCode',
       title: 'Mã sản phẩm',
+      textAlign: 'right' as DataTableColumnTextAlign,
+      width: '10%',
+      render: (packaging: Packaging) => (
+        <Text
+          style={{
+            fontSize: '0.875rem',
+            textWrap: 'nowrap',
+          }}
+        >
+          {packaging.itemCode}
+        </Text>
+      ),
     },
     {
       accessor: 'name',
       title: 'Tên bao bì',
+      width: '30%',
     },
 
     {
@@ -157,7 +170,6 @@ function ListComponent() {
         }}
         scrollAreaProps={{
           style: {
-            minWidth: 'calc(300px)',
             overflowY: 'auto',
           },
         }}

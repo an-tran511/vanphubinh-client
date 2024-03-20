@@ -162,7 +162,6 @@ function ListComponent() {
         }}
         scrollAreaProps={{
           style: {
-            minWidth: 'calc(300px)',
             overflowY: 'auto',
           },
         }}

@@ -50,7 +50,6 @@ function CreateComponent() {
       // newMoulds: [],
     },
   })
-  console.log(methods.formState.errors)
   const onSubmit = (data: Packaging) => {
     const partnerId = methods.getValues('customer')
     if (partnerId) {

@@ -27,7 +27,7 @@ export function PartnerSelect(props: PartnerSelectProps) {
       defaultOptions
       name={name}
       label={label}
-      getOptionLabel={(option) => option.name}
+      getOptionLabel={(option) => option.id + '-' + option.name}
       getOptionValue={(option) => option.id}
     />
   )

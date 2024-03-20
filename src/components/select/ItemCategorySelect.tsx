@@ -26,7 +26,7 @@ export function ItemCategorySelect(props: ItemCategorySelectProps) {
       defaultOptions
       name={name}
       label={label}
-      getOptionLabel={(option) => option.name}
+      getOptionLabel={(option) => option.computedName}
       getOptionValue={(option) => option.id}
     />
   )
