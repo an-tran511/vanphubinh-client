@@ -59,9 +59,9 @@ function UpdateComponent() {
             name: updatedData.name,
             uom: updatedData.uom,
             itemCode: updatedData.itemCode,
-            customer: updatedData.customer,
-            itemCategory: updatedData.itemCategory,
-            defaultSupplier: updatedData.defaultSupplier,
+            customer: updatedData.customer ?? null,
+            itemCategory: updatedData.itemCategory ?? null,
+            defaultSupplier: updatedData.defaultSupplier ?? null,
             notes: updatedData.notes,
             attributes: {
               dimension: updatedData?.attributes?.dimension,
@@ -72,7 +72,7 @@ function UpdateComponent() {
             },
           },
           {
-            keepDirtyValues: true,
+            keepDirtyValues: false,
           },
         )
       },
