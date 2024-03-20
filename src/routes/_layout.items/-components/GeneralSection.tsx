@@ -1,8 +1,10 @@
-import { UomCreatableSelect } from '@/components/select/UomCreatableSelect'
+import { ItemCategorySelect } from '@/components/select/ItemCategorySelect'
+import { PartnerSelect } from '@/components/select/PartnerSelect'
+import { UomSelect } from '@/components/select/UomSelect'
 import { Packaging } from '@/validators/packaging'
-import { Stack } from '@mantine/core'
+import { SimpleGrid, Stack } from '@mantine/core'
 import { Control } from 'react-hook-form'
-import { Textarea } from 'react-hook-form-mantine'
+import { TextInput, Textarea } from 'react-hook-form-mantine'
 
 interface GeneralSectionProps {
   control: Control<Packaging>
@@ -12,7 +14,26 @@ export const GeneralSection = (props: GeneralSectionProps) => {
   const { control } = props
   return (
     <Stack gap="sm">
-      <UomCreatableSelect control={control} name="uom" label="Đơn vị tính" />
+      <SimpleGrid cols={{ base: 1, md: 2 }} verticalSpacing="md" spacing="xl">
+        <UomSelect
+          control={control}
+          name="uom"
+          label="Đơn vị tính"
+          withAsterisk
+        />
+        <PartnerSelect control={control} name="customer" label="Khách hàng" />
+        <ItemCategorySelect
+          control={control}
+          name="itemCategory"
+          label="Nhóm hàng hoá"
+        />
+        <TextInput
+          name="itemCode"
+          control={control}
+          label="Mã nội bộ"
+          radius="md"
+        />
+      </SimpleGrid>
       <Textarea
         control={control}
         name="notes"

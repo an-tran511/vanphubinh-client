@@ -4,14 +4,14 @@ import { HookReactSelect } from './\bHookReactSelect'
 import { getUomOptions } from '@/apis/uom'
 import { Uom } from '@/validators/uom'
 
-interface UomCreatableSelectProps {
+interface UomSelectProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   control: Control<any>
   name: string
   withAsterisk?: boolean
   label: string
 }
-export function UomCreatableSelect(props: UomCreatableSelectProps) {
+export function UomSelect(props: UomSelectProps) {
   const { control, name, label, withAsterisk } = props
   const promiseOptions = (inputValue: string) =>
     new Promise<Uom[]>((resolve) => {
