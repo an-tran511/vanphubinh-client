@@ -4,4 +4,4 @@ export const UomInputSchema = object({
   name: string([minLength(1, 'Trường bắt buộc')]),
 })
 
-export type UomInput = Input<typeof UomInputSchema>
+export type Uom = Input<typeof UomInputSchema> & { id: string }
