@@ -62,7 +62,7 @@ export const List = (props: ListProps) => {
                 onClick={onCreateHandler}
                 radius="md"
               >
-                Thêm mới
+                Tạo
               </Button>
             )}
           </Group>

@@ -10,3 +10,11 @@ export const getPackagings = async (deps: string | object) => {
     .json<ListResponse<Packaging>>()
   return response
 }
+
+export const createPackaging = async (data: Packaging) => {
+  const response = await fetchClient
+    .url('/packagings')
+    .post(data)
+    .json<Packaging>()
+  return response
+}

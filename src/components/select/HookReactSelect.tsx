@@ -60,6 +60,7 @@ export function HookReactSelect<T extends FieldValues>({
       ...base,
       margin: '0',
     }),
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     menu: (base: any) => ({
       ...base,
       fontSize: '0.88rem',
