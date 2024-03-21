@@ -6,6 +6,8 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { createLocation } from '@/apis/location'
 import { CreateLocationInputSchema, Location } from '@/validators/location'
+import { WarehouseSelect } from '@/components/select/WarehouseSelect'
+import { LocationSelect } from '@/components/select/LocationSelect'
 
 interface LocationCreateProps {
   onClose: () => void
@@ -23,6 +25,7 @@ export function LocationCreate(props: LocationCreateProps) {
       isReturnLocation: false,
       warehouse: undefined,
       parentLocation: null,
+      type: 'internal',
     },
   })
 
@@ -53,8 +56,22 @@ export function LocationCreate(props: LocationCreateProps) {
           control={control}
           withAsterisk
         />
-        <Checkbox name="isReturnLocation" label="Vị trí trả hàng" />
-        <Checkbox name="isScrapLocation" label="Vị trí phế liệu" />
+        <WarehouseSelect name="warehouse" label="Kho tổng" control={control} />
+        <LocationSelect
+          name="parentLocation"
+          label="Vị trí cha"
+          control={control}
+        />
+        <Checkbox
+          name="isReturnLocation"
+          label="Vị trí trả hàng"
+          control={control}
+        />
+        <Checkbox
+          name="isScrapLocation"
+          label="Vị trí phế liệu"
+          control={control}
+        />
         <TextInput
           name="maxStockLevel"
           label="Số lượng tối đa"

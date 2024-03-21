@@ -10,6 +10,7 @@ import {
   merge,
   nullable,
   omit,
+  picklist,
 } from 'valibot'
 import { WarehouseInputSchema } from './warehouse'
 
@@ -22,6 +23,15 @@ const LocationInputSchema = object({
     merge([WarehouseInputSchema, object({ id: string() })]),
     'Trường bắt buộc',
   ),
+  type: picklist([
+    'view',
+    'internal',
+    'customer',
+    'inventory',
+    'production',
+    'transit',
+    'supplier',
+  ]),
 })
 
 export const CreateLocationInputSchema = merge([
@@ -35,7 +45,7 @@ export const CreateLocationInputSchema = merge([
           'maxStockLevel',
           'warehouse',
         ]),
-        object({ id: string() }),
+        object({ id: string(), path: string() }),
       ]),
     ),
   }),
@@ -43,4 +53,5 @@ export const CreateLocationInputSchema = merge([
 
 export type Location = Input<typeof CreateLocationInputSchema> & {
   id: string
+  computedName: string
 }
