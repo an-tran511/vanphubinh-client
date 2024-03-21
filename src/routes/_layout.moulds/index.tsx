@@ -11,20 +11,20 @@ import { useDebouncedCallback } from 'use-debounce'
 import { fallback, number, object, parse, string } from 'valibot'
 import classes from '@/components/table/Table.module.css'
 import { List } from '@/components/crud/list'
-import { packagingsQueryOptions } from '@/apis/queryOptions'
+import { mouldsQueryOptions } from '@/apis/queryOptions'
 import { Eye } from '@phosphor-icons/react'
-import { type Packaging } from '@/validators/packaging'
+import { type Mould } from '@/validators/mould'
 
-const packagingsSearchSchema = object({
+const mouldsSearchSchema = object({
   page: fallback(number(), 1),
   searchValue: fallback(string(), ''),
   // filter: z.string().catch(''),
   // sort: z.enum(['newest', 'oldest', 'price']).catch('newest'),
 })
 
-export const Route = createFileRoute('/_layout/packagings/')({
+export const Route = createFileRoute('/_layout/moulds/')({
   component: ListComponent,
-  validateSearch: (search) => parse(packagingsSearchSchema, search),
+  validateSearch: (search) => parse(mouldsSearchSchema, search),
   preSearchFilters: [
     (search) => ({
       ...search,
@@ -34,10 +34,10 @@ export const Route = createFileRoute('/_layout/packagings/')({
   ],
   loaderDeps: (search) => search.search,
   loader: ({ context: { queryClient }, deps }) =>
-    queryClient.ensureQueryData(packagingsQueryOptions({ deps })),
+    queryClient.ensureQueryData(mouldsQueryOptions({ deps })),
 })
 
-const routeApi = getRouteApi('/_layout/packagings/')
+const routeApi = getRouteApi('/_layout/moulds/')
 
 function ListComponent() {
   const navigate = useNavigate({ from: Route.fullPath })
@@ -46,33 +46,33 @@ function ListComponent() {
   const [searchValueDraft, setSearchValueDraft] = useState(searchValue ?? '')
 
   const { data, isFetching } = useQuery(
-    packagingsQueryOptions({
+    mouldsQueryOptions({
       deps: { page, searchValue },
     }),
   )
 
   const meta = data?.meta
-  const packagings = data?.data
+  const moulds = data?.data
   const columns = [
     {
       accessor: 'itemCode',
-      title: 'Mã bao bì',
+      title: 'Mã trục in',
       textAlign: 'right' as DataTableColumnTextAlign,
       width: '10%',
-      render: (packaging: Packaging) => (
+      render: (mould: Mould) => (
         <Text
           style={{
             fontSize: '0.875rem',
             textWrap: 'nowrap',
           }}
         >
-          {packaging.itemCode}
+          {mould.itemCode}
         </Text>
       ),
     },
     {
       accessor: 'name',
-      title: 'Tên bao bì',
+      title: 'Tên trục in',
       width: '30%',
     },
 
@@ -91,12 +91,12 @@ function ListComponent() {
     {
       accessor: 'actions',
       title: 'Hành động',
-      render: (packaging: Packaging) => (
+      render: (mould: Mould) => (
         <Group>
           <ActionIcon
             size="sm"
             variant="light"
-            onClick={() => navigate({ to: `/packagings/${packaging.id}` })}
+            onClick={() => navigate({ to: `/moulds/${mould.id}` })}
           >
             <Eye size={12} weight="bold" />
           </ActionIcon>
@@ -132,8 +132,8 @@ function ListComponent() {
 
   return (
     <List
-      title="Bao bì"
-      onCreateHandler={() => navigate({ to: '/packagings/create' })}
+      title="Trục in"
+      onCreateHandler={() => navigate({ to: '/moulds/create' })}
       pagination={pagination}
     >
       <Box px={{ base: 'lg', md: 'xl' }} py="md" bg="white">
@@ -176,7 +176,7 @@ function ListComponent() {
         fetching={isFetching}
         highlightOnHover
         columns={columns}
-        records={packagings}
+        records={moulds}
         verticalSpacing="sm"
         verticalAlign="top"
         noRecordsText="Không có dữ liệu"

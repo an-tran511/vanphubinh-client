@@ -3,6 +3,7 @@ import { getPartners, findPartnerById } from './partner'
 import { getPackagings, findPackagingById } from './packaging'
 import { findLocationById, getLocations } from './location'
 import { getWarehouses } from './warehouse'
+import { getMoulds } from './mould'
 
 export const partnersQueryOptions = ({ deps }: { deps: string | object }) =>
   queryOptions({
@@ -56,4 +57,11 @@ export const findWarehouseByIdQueryOptions = ({ id }: { id: string }) =>
   queryOptions({
     queryKey: ['warehouses', id],
     queryFn: () => findLocationById(id),
+  })
+export const mouldsQueryOptions = ({ deps }: { deps: string | object }) =>
+  queryOptions({
+    queryKey: ['moulds', deps],
+    queryFn: () => getMoulds(deps),
+    placeholderData: keepPreviousData,
+    select: (data) => data,
   })

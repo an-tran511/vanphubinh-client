@@ -16,6 +16,7 @@ import { Route as LayoutIndexImport } from './routes/_layout.index'
 import { Route as AuthLoginImport } from './routes/auth/login'
 import { Route as LayoutPartnersIndexImport } from './routes/_layout.partners/index'
 import { Route as LayoutPackagingsIndexImport } from './routes/_layout.packagings/index'
+import { Route as LayoutMouldsIndexImport } from './routes/_layout.moulds/index'
 import { Route as LayoutLocationsIndexImport } from './routes/_layout.locations/index'
 import { Route as LayoutPartnersIdImport } from './routes/_layout.partners/$id'
 import { Route as LayoutPackagingsCreateImport } from './routes/_layout.packagings/create'
@@ -45,6 +46,11 @@ const LayoutPartnersIndexRoute = LayoutPartnersIndexImport.update({
 
 const LayoutPackagingsIndexRoute = LayoutPackagingsIndexImport.update({
   path: '/packagings/',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
+const LayoutMouldsIndexRoute = LayoutMouldsIndexImport.update({
+  path: '/moulds/',
   getParentRoute: () => LayoutRoute,
 } as any)
 
@@ -100,6 +106,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutLocationsIndexImport
       parentRoute: typeof LayoutImport
     }
+    '/_layout/moulds/': {
+      preLoaderRoute: typeof LayoutMouldsIndexImport
+      parentRoute: typeof LayoutImport
+    }
     '/_layout/packagings/': {
       preLoaderRoute: typeof LayoutPackagingsIndexImport
       parentRoute: typeof LayoutImport
@@ -120,6 +130,7 @@ export const routeTree = rootRoute.addChildren([
     LayoutPackagingsCreateRoute,
     LayoutPartnersIdRoute,
     LayoutLocationsIndexRoute,
+    LayoutMouldsIndexRoute,
     LayoutPackagingsIndexRoute,
     LayoutPartnersIndexRoute,
   ]),
