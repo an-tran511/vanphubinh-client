@@ -23,3 +23,11 @@ export const findLocationById = async (id: string) => {
     .json<Location>()
   return response
 }
+
+export const createLocation = async (data: object) => {
+  const response = await fetchClient
+    .url('/locations')
+    .post(data)
+    .json<Location>()
+  return response
+}

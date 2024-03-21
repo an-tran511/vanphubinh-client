@@ -41,7 +41,6 @@ export const CreateLocationInputSchema = merge([
   }),
 ])
 
-export type Location = Input<typeof LocationInputSchema> & {
+export type Location = Input<typeof CreateLocationInputSchema> & {
   id: string
-  parentLocation: Location
 }
