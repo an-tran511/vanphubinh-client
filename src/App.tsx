@@ -1,6 +1,8 @@
 import '@mantine/core/styles.layer.css'
+import '@mantine/dropzone/styles.layer.css'
+import '@mantine/dates/styles.layer.css'
 import 'mantine-datatable/styles.layer.css'
-import '@mantine/dropzone/styles.css'
+
 import { MantineProvider } from '@mantine/core'
 import { ModalsProvider } from '@mantine/modals'
 import { QueryClientProvider } from '@tanstack/react-query'
@@ -13,6 +15,8 @@ import { useAuth } from '@/hooks/useAuth'
 import { theme } from '@/theme'
 import { routerClient } from '@/utils/routerClient'
 import { queryClient } from '@/utils/queryClient'
+import { DatesProvider } from '@mantine/dates'
+import 'dayjs/locale/vi'
 
 // Register the router instance for type safety
 declare module '@tanstack/react-router' {
@@ -34,9 +38,11 @@ function App() {
       <MantineProvider theme={theme}>
         <ModalsProvider>
           <AuthProvider>
-            <Toaster richColors />
-            <InnerApp />
-            <ReactQueryDevtools />
+            <DatesProvider settings={{ locale: 'vi', consistentWeeks: true }}>
+              <Toaster richColors />
+              <InnerApp />
+              <ReactQueryDevtools />
+            </DatesProvider>
           </AuthProvider>
         </ModalsProvider>
       </MantineProvider>

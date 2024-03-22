@@ -4,6 +4,7 @@ import { getPackagings, findPackagingById } from './packaging'
 import { findLocationById, getLocations } from './location'
 import { getWarehouses } from './warehouse'
 import { getMoulds } from './mould'
+import { getPurchaseMouldOrders } from './purchaseMouldOrder'
 
 export const partnersQueryOptions = ({ deps }: { deps: string | object }) =>
   queryOptions({
@@ -62,6 +63,18 @@ export const mouldsQueryOptions = ({ deps }: { deps: string | object }) =>
   queryOptions({
     queryKey: ['moulds', deps],
     queryFn: () => getMoulds(deps),
+    placeholderData: keepPreviousData,
+    select: (data) => data,
+  })
+
+export const purchaseMouldOrdersQueryOptions = ({
+  deps,
+}: {
+  deps: string | object
+}) =>
+  queryOptions({
+    queryKey: ['purchase-mould-orders', deps],
+    queryFn: () => getPurchaseMouldOrders(deps),
     placeholderData: keepPreviousData,
     select: (data) => data,
   })

@@ -11,7 +11,10 @@ export const getMoulds = async (deps: string | object) => {
     .json<ListResponse<Mould>>()
   return response
 }
-
+export const getMouldOptions = async (deps: string | object) => {
+  const { data } = await getMoulds(deps)
+  return data
+}
 export const createMould = async (data: Mould) => {
   const response = await fetchClient.url('/moulds').post(data).json<Mould>()
   return response
