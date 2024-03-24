@@ -69,12 +69,6 @@ function ListComponent() {
       accessor: 'warehouse.name',
       title: 'Kho tổng',
     },
-
-    {
-      accessor: 'maxStockLevel',
-      title: 'Sức chứa tối đa',
-    },
-
     {
       accessor: 'actions',
       title: 'Hành động',

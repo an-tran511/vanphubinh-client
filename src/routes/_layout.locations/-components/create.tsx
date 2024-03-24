@@ -72,13 +72,6 @@ export function LocationCreate(props: LocationCreateProps) {
           label="Vị trí phế liệu"
           control={control}
         />
-        <TextInput
-          name="maxStockLevel"
-          label="Số lượng tối đa"
-          type="number"
-          radius="md"
-          control={control}
-        />
 
         <Button radius="md" type="submit" loading={isPending}>
           Tạo

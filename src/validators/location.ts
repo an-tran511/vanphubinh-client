@@ -18,7 +18,6 @@ const LocationInputSchema = object({
   name: string([minLength(1, 'Trường bắt buộc')]),
   isScrapLocation: boolean(),
   isReturnLocation: boolean(),
-  maxStockLevel: fallback(number(), 0),
   warehouse: required(
     merge([WarehouseInputSchema, object({ id: string() })]),
     'Trường bắt buộc',
@@ -42,7 +41,6 @@ export const CreateLocationInputSchema = merge([
         omit(LocationInputSchema, [
           'isReturnLocation',
           'isScrapLocation',
-          'maxStockLevel',
           'warehouse',
         ]),
         object({ id: string(), path: string() }),
