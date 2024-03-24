@@ -7,8 +7,6 @@ import {
   Button,
   em,
   ActionIcon,
-  Card,
-  Divider,
   Popover,
   ScrollArea,
   Drawer,
@@ -23,10 +21,11 @@ interface CreateProps {
   children: ReactNode
   title: string
   savingState?: boolean
+  subButton?: ReactNode
 }
 
 export const Create = (props: CreateProps) => {
-  const { children, title, savingState } = props
+  const { children, title, savingState, subButton } = props
   const isTablet = useMediaQuery(`(max-width: ${em(801)})`)
   const [opened, { open, close }] = useDisclosure(false)
   return (
@@ -49,6 +48,7 @@ export const Create = (props: CreateProps) => {
           </Group>
 
           <Group justify="flex-end" gap="xs">
+            {subButton}
             {isTablet ? (
               <Group gap="xs">
                 <ActionIcon
@@ -90,7 +90,7 @@ export const Create = (props: CreateProps) => {
         <Box className={classes.main}>
           <ScrollArea h="100%">{children}</ScrollArea>
         </Box>
-        <Box className={classes.aside} visibleFrom="md">
+        {/* <Box className={classes.aside} visibleFrom="md">
           <Card px="xl" bg="gray.0">
             <Group>
               <Popover
@@ -128,7 +128,7 @@ export const Create = (props: CreateProps) => {
             </Group>
             <Divider my="sm" />
           </Card>
-        </Box>
+        </Box> */}
         <Drawer
           opened={opened}
           onClose={close}
