@@ -29,7 +29,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(
     {
       email: data.user?.email || null,
-      name: data.user?.fullName || null,
+      name: data.user?.name || null,
     } || null,
   )
   const isAuthenticated =

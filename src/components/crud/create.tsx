@@ -11,6 +11,8 @@ import {
   ScrollArea,
   Drawer,
   Badge,
+  Card,
+  Divider,
 } from '@mantine/core'
 import { useDisclosure, useMediaQuery } from '@mantine/hooks'
 import { CaretDown, Note, Plus } from '@phosphor-icons/react'
@@ -22,10 +24,11 @@ interface CreateProps {
   title: string
   savingState?: boolean
   subButton?: ReactNode
+  withCommentSection?: boolean
 }
 
 export const Create = (props: CreateProps) => {
-  const { children, title, savingState, subButton } = props
+  const { children, title, savingState, subButton, withCommentSection } = props
   const isTablet = useMediaQuery(`(max-width: ${em(801)})`)
   const [opened, { open, close }] = useDisclosure(false)
   return (
@@ -89,45 +92,47 @@ export const Create = (props: CreateProps) => {
         <Box className={classes.main}>
           <ScrollArea h="100%">{children}</ScrollArea>
         </Box>
-        {/* <Box className={classes.aside} visibleFrom="md">
-          <Card px="xl" bg="gray.0">
-            <Group>
-              <Popover
-                width="target"
-                position="bottom"
-                withArrow
-                shadow="md"
-                offset={-5}
-              >
-                <Popover.Target>
-                  <Button
-                    color="gray.0"
-                    autoContrast
-                    justify="space-between"
-                    rightSection={<CaretDown size={14} />}
-                    size="compact-md"
-                  >
-                    <Text fw={500}>Bình luận</Text>
-                  </Button>
-                </Popover.Target>
-                <Popover.Dropdown p="xs">
-                  <Stack gap="xs">
-                    <Button variant="subtle" autoContrast size="compact-md">
-                      <Text fw={500}>Tất cả</Text>
-                    </Button>
-                    <Button variant="subtle" autoContrast size="compact-md">
+        {withCommentSection && (
+          <Box className={classes.aside} visibleFrom="md">
+            <Card px="xl" bg="gray.0">
+              <Group>
+                <Popover
+                  width="target"
+                  position="bottom"
+                  withArrow
+                  shadow="md"
+                  offset={-5}
+                >
+                  <Popover.Target>
+                    <Button
+                      color="gray.0"
+                      autoContrast
+                      justify="space-between"
+                      rightSection={<CaretDown size={14} />}
+                      size="compact-md"
+                    >
                       <Text fw={500}>Bình luận</Text>
                     </Button>
-                    <Button variant="subtle" autoContrast size="compact-md">
-                      <Text fw={500}>Lịch sử</Text>
-                    </Button>
-                  </Stack>
-                </Popover.Dropdown>
-              </Popover>
-            </Group>
-            <Divider my="sm" />
-          </Card>
-        </Box> */}
+                  </Popover.Target>
+                  <Popover.Dropdown p="xs">
+                    <Stack gap="xs">
+                      <Button variant="subtle" autoContrast size="compact-md">
+                        <Text fw={500}>Tất cả</Text>
+                      </Button>
+                      <Button variant="subtle" autoContrast size="compact-md">
+                        <Text fw={500}>Bình luận</Text>
+                      </Button>
+                      <Button variant="subtle" autoContrast size="compact-md">
+                        <Text fw={500}>Lịch sử</Text>
+                      </Button>
+                    </Stack>
+                  </Popover.Dropdown>
+                </Popover>
+              </Group>
+              <Divider my="sm" />
+            </Card>
+          </Box>
+        )}
         <Drawer
           opened={opened}
           onClose={close}

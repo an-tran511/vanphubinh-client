@@ -74,11 +74,16 @@ export const List = (props: ListProps) => {
           </Group>
         </Group>
       </Box>
-      <Card py="0" px="0" h="100%" mah="100%">
+      <Card py="0" px="0" h="100%" mah="100%" radius={0}>
         {children}
       </Card>
       {page && onPageChange && (
-        <Box px={{ base: 'md', md: 'lg' }}>
+        <Box
+          px={{ base: 'md', md: 'lg' }}
+          style={{
+            borderTop: '1px solid var(--mantine-color-gray-3)',
+          }}
+        >
           <Group justify="space-between" py="xs" visibleFrom="md">
             <Text size="sm" c="dimmed">
               Hiện{' '}

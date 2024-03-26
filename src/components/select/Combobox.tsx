@@ -41,6 +41,7 @@ export const CreatableCombobox = factory<SelectFactory>((_props, ref) => {
 
   const {
     label,
+    value,
     withAsterisk,
     getOptionValue,
     getOptionLabel,
@@ -50,8 +51,11 @@ export const CreatableCombobox = factory<SelectFactory>((_props, ref) => {
     classNames,
     placeholder,
     error,
+    defaultValue,
   } = props
-  const [selectedValue, setSelectedValue] = useState<unknown | null>(null)
+  const [selectedValue, setSelectedValue] = useState<unknown | null>(
+    value ?? defaultValue ?? null,
+  )
   const [search, setSearch] = useState(searchValue)
   const [shouldSearch, setShouldSearch] = useState(false)
   const [data, setData] = useState<unknown[]>([])

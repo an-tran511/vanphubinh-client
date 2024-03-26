@@ -29,7 +29,7 @@ export function LocationSelect(props: LocationSelectProps) {
       loadOptions={debounce(promiseOptions, 500)}
       name={name}
       label={label}
-      getOptionLabel={(option: Location) => option.name}
+      getOptionLabel={(option: Location) => option.computedName}
       getOptionValue={(option: Location) => option.id}
     />
   )

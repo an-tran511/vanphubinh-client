@@ -29,7 +29,6 @@ export function HookFormCombobox<T extends FieldValues>({
     rules,
     shouldUnregister,
   })
-  console.log('HookFormCombobox', error)
   return (
     <CreatableCombobox
       value={value}
