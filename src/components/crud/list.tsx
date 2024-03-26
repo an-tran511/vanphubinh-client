@@ -29,7 +29,13 @@ interface ListProps {
 
 export const List = (props: ListProps) => {
   const { title, children, onCreateHandler, pagination } = props
-  const { page, onPageChange, lastPage, isLoading, total } = pagination ?? {}
+  const {
+    page,
+    onPageChange,
+    lastPage = 0,
+    isLoading,
+    total,
+  } = pagination ?? {}
   const isTablet = useMediaQuery(`(max-width: ${em(801)})`)
 
   return (
@@ -71,7 +77,7 @@ export const List = (props: ListProps) => {
       <Card py="0" px="0" h="100%" mah="100%">
         {children}
       </Card>
-      {page && onPageChange && lastPage && (
+      {page && onPageChange && (
         <Box px={{ base: 'md', md: 'lg' }}>
           <Group justify="space-between" py="xs" visibleFrom="md">
             <Text size="sm" c="dimmed">

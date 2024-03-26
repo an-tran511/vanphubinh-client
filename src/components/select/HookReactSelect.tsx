@@ -40,9 +40,10 @@ export function HookReactSelect<T extends FieldValues>({
     control: (base: any) => ({
       ...base,
       fontSize: '0.88rem',
-      minHeight: '36px',
-      maxHeight: '36px',
+      minHeight: '34px',
+      maxHeight: '34px',
       margin: '0',
+      padding: '0',
       borderRadius: '0.5rem',
       border: error?.message ? '1px solid red' : '1px solid #ced4da',
       boxShadow: 'none',
@@ -50,20 +51,18 @@ export function HookReactSelect<T extends FieldValues>({
         border: '1px solid #2b3882',
       },
     }),
+
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     menuPortal: (base: any) => ({
       ...base,
       zIndex: 9999,
     }),
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    valueContainer: (base: any) => ({
-      ...base,
-      margin: '0',
-    }),
+
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     menu: (base: any) => ({
       ...base,
       fontSize: '0.88rem',
+      padding: '0',
     }),
     placeholder: (base) => ({
       ...base,

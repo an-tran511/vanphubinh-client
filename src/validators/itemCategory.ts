@@ -5,6 +5,6 @@ export const ItemCategoryInputSchema = object({
 })
 
 export type ItemCategory = Input<typeof ItemCategoryInputSchema> & {
-  id: number
+  id: string
   computedName: string
 }

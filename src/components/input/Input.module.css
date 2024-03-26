@@ -1,0 +1,24 @@
+.root {
+  position: relative;
+  margin-top: rem(5px);
+}
+
+.input {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom-width: rem(1.5px);
+  border-radius: 0;
+  padding: 0;
+  height: 10px;
+
+  /* background-color: var(--mantine-color-body); */
+}
+
+.wrapper {
+  --input-height-xs: rem(26px);
+  --input-height-sm: rem(32px);
+  --input-height-md: rem(38px);
+  --input-height-lg: rem(44px);
+  --input-height-xl: rem(50px);
+}

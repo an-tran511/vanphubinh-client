@@ -1,8 +1,9 @@
 import { Control } from 'react-hook-form'
 import debounce from 'debounce-promise'
-import { HookReactSelect } from './\bHookReactSelect'
 import { getItemCategoryOptions } from '@/apis/itemCategory'
 import { ItemCategory } from '@/validators/itemCategory'
+import { HookFormCombobox } from './HookFormCombobox'
+import { useQueryClient } from '@tanstack/react-query'
 
 interface ItemCategorySelectProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -12,22 +13,23 @@ interface ItemCategorySelectProps {
   label: string
 }
 export function ItemCategorySelect(props: ItemCategorySelectProps) {
-  const { control, name, label } = props
+  const { control, name, label, withAsterisk } = props
+  const queryClient = useQueryClient()
   const promiseOptions = (inputValue: string) =>
-    new Promise<ItemCategory[]>((resolve) => {
-      resolve(getItemCategoryOptions({ searchValue: inputValue }))
+    queryClient.ensureQueryData({
+      queryKey: ['item-categories', inputValue],
+      queryFn: () => getItemCategoryOptions({ searchValue: inputValue }),
     })
-
   return (
-    <HookReactSelect
-      cacheOptions
+    <HookFormCombobox
+      placeholder="Chọn nhà trục..."
+      withAsterisk={withAsterisk}
       control={control}
       loadOptions={debounce(promiseOptions, 500)}
-      defaultOptions
       name={name}
       label={label}
-      getOptionLabel={(option) => option.computedName}
-      getOptionValue={(option) => option.id}
+      getOptionLabel={(option: ItemCategory) => option.computedName}
+      getOptionValue={(option: ItemCategory) => option.id}
     />
   )
 }
