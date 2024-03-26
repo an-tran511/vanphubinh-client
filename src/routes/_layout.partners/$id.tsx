@@ -64,7 +64,7 @@ function EditPartner() {
       }}
     >
       <Show title="Đối tác" isDirty={isDirty} reset={reset}>
-        <Stack gap="sm" px={{ base: 'lg', md: 'xl' }} pt="md">
+        <Stack gap="sm" px={{ base: 'lg', md: 'lg' }} pt="md">
           <Stack gap="0">
             <Text size="sm" fw={500}>
               Mã đối tác

@@ -12,6 +12,7 @@ import {
   useProps,
   CloseButton,
 } from '@mantine/core'
+import classes from './Combobox.module.css'
 
 export type CreatableComboboxProps = Omit<SelectProps, 'onChange' | 'ref'> & {
   label?: string
@@ -96,20 +97,14 @@ export const CreatableCombobox = factory<SelectFactory>((_props, ref) => {
     }
   }, [search, shouldSearch, loadOptions, selectedValue])
 
-  const options = data
-    .filter((item) =>
-      selectedValue
-        ? getOptionValue(item) !== getOptionValue(selectedValue)
-        : true,
-    )
-    .map((item) => (
-      <Combobox.Option
-        value={getOptionValue?.(item)}
-        key={getOptionValue?.(item)}
-      >
-        {getOptionLabel?.(item)}
-      </Combobox.Option>
-    ))
+  const options = data.map((item) => (
+    <Combobox.Option
+      value={getOptionValue?.(item)}
+      key={getOptionValue?.(item)}
+    >
+      {getOptionLabel?.(item)}
+    </Combobox.Option>
+  ))
 
   const getLabel = () => {
     if (selectedValue) {
@@ -122,6 +117,10 @@ export const CreatableCombobox = factory<SelectFactory>((_props, ref) => {
     <Combobox
       store={combobox}
       withinPortal={true}
+      classNames={{
+        option: classes.option,
+        dropdown: classes.dropdown,
+      }}
       onOptionSubmit={(val) => {
         const nextValue =
           data?.find((item) => getOptionValue(item) === val) ?? null
@@ -162,16 +161,12 @@ export const CreatableCombobox = factory<SelectFactory>((_props, ref) => {
         </InputBase>
       </Combobox.Target>
 
-      <Combobox.Dropdown
-        style={{
-          boxShadow:
-            'rgba(22, 23, 24, 0.35) 0px 10px 38px -10px, rgba(22, 23, 24, 0.2) 0px 10px 20px -15px',
-        }}
-      >
+      <Combobox.Dropdown>
         <Combobox.Search
           ref={ref}
           value={search}
           onChange={(event) => {
+            combobox.updateSelectedOptionIndex()
             setSearch(event.currentTarget.value)
             setShouldSearch(true)
           }}

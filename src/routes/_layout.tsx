@@ -65,7 +65,7 @@ function Layout() {
             />
           </Group>
         </AppShell.Header>
-        <AppShell.Navbar p="0">
+        <AppShell.Navbar p="0" withBorder={false}>
           <div {...handlers}>
             <NavbarNested />
           </div>

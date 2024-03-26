@@ -16,7 +16,7 @@ export function PackagingForm(props: PackagingFormProps) {
   const { control } = props
 
   return (
-    <Card shadow="0" radius="0" px={{ base: 'lg', md: 'xl' }}>
+    <Card shadow="0" radius="0" px={{ base: 'lg', md: 'lg' }}>
       <Textarea
         name="name"
         control={control}

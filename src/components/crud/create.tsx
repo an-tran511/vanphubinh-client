@@ -32,7 +32,7 @@ export const Create = (props: CreateProps) => {
     <Stack h={{ base: 'calc(100vh - 60px)', md: '100vh' }} gap="0">
       <Box
         py="md"
-        px={{ base: 'md', md: 'xl' }}
+        px={{ base: 'md', md: 'lg' }}
         style={{
           borderBottom: '1px solid var(--mantine-color-gray-3)',
           position: 'sticky',
@@ -42,7 +42,7 @@ export const Create = (props: CreateProps) => {
         <Group justify="space-between">
           <Group gap="xs">
             <Title order={isTablet ? 4 : 2}>{title}</Title>
-            <Badge variant="light" color="blue" ml="sm">
+            <Badge variant="light" color="blue">
               Mới
             </Badge>
           </Group>
@@ -72,7 +72,6 @@ export const Create = (props: CreateProps) => {
             ) : (
               <Group>
                 <Button
-                  size={isTablet ? 'xs' : 'sm'}
                   variant="filled"
                   radius="md"
                   justify="space-between"

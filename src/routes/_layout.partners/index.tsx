@@ -128,7 +128,7 @@ function ListComponent() {
 
   return (
     <List title="Đối tác" onCreateHandler={open} pagination={pagination}>
-      <Box px={{ base: 'lg', md: 'xl' }} py="md" bg="white">
+      <Box px={{ base: 'lg', md: 'lg' }} py="md" bg="white">
         <Group>
           <TextInput
             visibleFrom="md"
