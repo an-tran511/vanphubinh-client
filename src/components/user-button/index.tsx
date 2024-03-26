@@ -16,7 +16,7 @@ export function UserButton() {
   const { mutate } = useMutation({
     mutationKey: ['logout'],
     mutationFn: logout,
-    onSuccess: () => {
+    onSettled: () => {
       flushSync(() => {
         setUser(null)
       })
