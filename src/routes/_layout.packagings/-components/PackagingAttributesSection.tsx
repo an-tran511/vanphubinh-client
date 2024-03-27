@@ -13,11 +13,7 @@ export const PackagingAttributesSection = (
 
   return (
     <Stack gap="sm">
-      <SimpleGrid
-        cols={{ base: 1, md: 2 }}
-        spacing={{ base: 10, sm: 'xl' }}
-        verticalSpacing="md"
-      >
+      <SimpleGrid cols={{ base: 1, md: 4 }} verticalSpacing="sm" spacing="sm">
         <TextInput
           control={control}
           name="attributes.dimension"
@@ -34,12 +30,6 @@ export const PackagingAttributesSection = (
           placeholder="123x123"
           label="Kích thước trải (rộng x cao)"
         />
-      </SimpleGrid>
-      <SimpleGrid
-        cols={{ base: 1, md: 2 }}
-        spacing={{ base: 10, sm: 'xl' }}
-        verticalSpacing="md"
-      >
         <NumberInput
           control={control}
           name="attributes.thickness"
@@ -62,11 +52,8 @@ export const PackagingAttributesSection = (
           allowDecimal={false}
         />
       </SimpleGrid>
-      <SimpleGrid
-        cols={{ base: 1, md: 2 }}
-        spacing={{ base: 10, sm: 'xl' }}
-        verticalSpacing="md"
-      >
+
+      <SimpleGrid cols={{ base: 1, md: 4 }} verticalSpacing="sm" spacing="sm">
         <NumberInput
           control={control}
           name="attributes.filmWidth"

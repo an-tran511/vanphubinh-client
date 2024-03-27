@@ -78,7 +78,7 @@ function CreateComponent() {
           methods.handleSubmit(onSubmit)(e)
         }}
       >
-        <Create title="Tạo bao bì" savingState={isPending}>
+        <Create title="Tạo bao bì" savingState={isPending} withCommentSection>
           <PackagingForm control={methods.control} viewType="create" />
         </Create>
       </form>

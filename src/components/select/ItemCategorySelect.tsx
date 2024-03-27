@@ -22,7 +22,7 @@ export function ItemCategorySelect(props: ItemCategorySelectProps) {
     })
   return (
     <HookFormCombobox
-      placeholder="Chọn nhà trục..."
+      placeholder="Chọn nhóm hàng hoá..."
       withAsterisk={withAsterisk}
       control={control}
       loadOptions={debounce(promiseOptions, 500)}

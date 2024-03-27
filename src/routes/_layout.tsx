@@ -47,7 +47,7 @@ function Layout() {
         layout="alt"
         header={{ height: 60, collapsed: !isTablet }}
         navbar={{
-          width: 280,
+          width: 270,
           breakpoint: 'md',
           collapsed: { mobile: !opened },
         }}
@@ -65,7 +65,7 @@ function Layout() {
             />
           </Group>
         </AppShell.Header>
-        <AppShell.Navbar p="0" withBorder={false}>
+        <AppShell.Navbar p={0} m={0} withBorder={false}>
           <div {...handlers}>
             <NavbarNested />
           </div>

@@ -73,8 +73,8 @@ export default function LinksGroup({
               className={classes.chevron}
               weight="bold"
               style={{
-                width: rem(16),
-                height: rem(16),
+                width: rem(12),
+                height: rem(12),
                 transform: opened ? 'rotate(-90deg)' : 'none',
               }}
             />
