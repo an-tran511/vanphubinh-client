@@ -1,9 +1,8 @@
-import { Text, Card, Tabs, Accordion } from '@mantine/core'
+import { Text, Card, Tabs, Stack, Divider } from '@mantine/core'
 import { Cylinder, Info } from '@phosphor-icons/react'
 import { Control } from 'react-hook-form'
 import { Textarea } from 'react-hook-form-mantine'
 import { Packaging } from '@/validators/packaging'
-import accClasses from '@/components/accordion/Accordion.module.css'
 import { GeneralSection } from '@/routes/_layout.items/-components/GeneralSection'
 import { PackagingAttributesSection } from './PackagingAttributesSection'
 
@@ -53,34 +52,21 @@ export function PackagingForm(props: PackagingFormProps) {
         </Tabs.List>
 
         <Tabs.Panel value="info">
-          <Accordion
-            multiple
-            radius="md"
-            defaultValue={['general', 'attributes']}
-            classNames={accClasses}
-            variant="default"
-          >
-            <Accordion.Item value="general">
-              <Accordion.Control>
-                <Text fw="500" size="sm" c="">
-                  Thông tin cơ bản
-                </Text>
-              </Accordion.Control>
-              <Accordion.Panel>
-                <GeneralSection control={control} />
-              </Accordion.Panel>
-            </Accordion.Item>
-            <Accordion.Item value="general">
-              <Accordion.Control>
-                <Text fw="500" size="sm" c="">
-                  Thông số khác
-                </Text>
-              </Accordion.Control>
-              <Accordion.Panel>
-                <PackagingAttributesSection control={control} />
-              </Accordion.Panel>
-            </Accordion.Item>
-          </Accordion>
+          <Stack>
+            <Stack mt="md">
+              <Text fw="500" size="sm" c="">
+                Thông tin cơ bản
+              </Text>
+              <GeneralSection control={control} />
+            </Stack>
+            <Divider />
+            <Stack>
+              <Text fw="500" size="sm" c="">
+                Thông số khác
+              </Text>
+              <PackagingAttributesSection control={control} />
+            </Stack>
+          </Stack>
         </Tabs.Panel>
       </Tabs>
     </Card>

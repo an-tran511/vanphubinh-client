@@ -14,7 +14,7 @@ export const GeneralSection = (props: GeneralSectionProps) => {
   const { control } = props
   return (
     <Stack gap="sm">
-      <SimpleGrid cols={{ base: 1, md: 4 }} verticalSpacing="sm" spacing="sm">
+      <SimpleGrid cols={{ base: 1, xl: 4 }} verticalSpacing="sm" spacing="sm">
         <UomSelect
           control={control}
           name="uom"

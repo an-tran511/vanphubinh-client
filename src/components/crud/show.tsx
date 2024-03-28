@@ -110,7 +110,7 @@ export const Show = (props: CreateProps) => {
           <ScrollArea h="100%">{children}</ScrollArea>
         </Box>
         <Box className={classes.aside} visibleFrom="md">
-          <Card px="xl" bg="gray.0">
+          <Card px="md" bg="gray.0">
             <Group>
               <Popover
                 width="target"
@@ -145,7 +145,7 @@ export const Show = (props: CreateProps) => {
                 </Popover.Dropdown>
               </Popover>
             </Group>
-            <Divider my="sm" />
+            <Divider my="xs" />
           </Card>
         </Box>
         <Drawer

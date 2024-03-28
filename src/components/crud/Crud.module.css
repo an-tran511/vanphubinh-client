@@ -24,7 +24,6 @@
   overflow-y: auto;
 }
 .aside {
-  width: rem(325px);
-  min-width: rem(325px);
+  min-width: rem(280px);
   background-color: var(--mantine-color-gray-0);
 }

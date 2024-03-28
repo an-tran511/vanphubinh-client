@@ -26,11 +26,11 @@ export function UserButton() {
   })
   return (
     <Group className={classes.user} justify="space-between">
-      <Group>
-        <Avvvatars value={initials(name)} />
+      <Group gap="xs">
+        <Avvvatars value={initials(name)} size={30} />
 
         <div style={{ flex: 1 }}>
-          <Text size="sm" fw={500}>
+          <Text size="xs" fw={500}>
             {user?.name}
           </Text>
 

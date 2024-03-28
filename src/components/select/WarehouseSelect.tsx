@@ -23,7 +23,7 @@ export function WarehouseSelect(props: WarehouseSelectProps) {
 
   return (
     <HookFormCombobox
-      placeholder="Chọn dơn vị..."
+      placeholder="Chọn kho tổng..."
       withAsterisk={withAsterisk}
       control={control}
       loadOptions={debounce(promiseOptions, 500)}

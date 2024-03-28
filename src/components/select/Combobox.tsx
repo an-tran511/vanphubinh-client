@@ -11,6 +11,7 @@ import {
   factory,
   useProps,
   CloseButton,
+  Text,
 } from '@mantine/core'
 import classes from './Combobox.module.css'
 
@@ -51,11 +52,7 @@ export const CreatableCombobox = factory<SelectFactory>((_props, ref) => {
     classNames,
     placeholder,
     error,
-    defaultValue,
   } = props
-  const [selectedValue, setSelectedValue] = useState<unknown | null>(
-    value ?? defaultValue ?? null,
-  )
   const [search, setSearch] = useState(searchValue)
   const [shouldSearch, setShouldSearch] = useState(false)
   const [data, setData] = useState<unknown[]>([])
@@ -99,22 +96,30 @@ export const CreatableCombobox = factory<SelectFactory>((_props, ref) => {
           setLoading(false)
         })
     }
-  }, [search, shouldSearch, loadOptions, selectedValue])
+  }, [search, shouldSearch, loadOptions])
 
   const options = data.map((item) => (
     <Combobox.Option
       value={getOptionValue?.(item)}
       key={getOptionValue?.(item)}
     >
-      {getOptionLabel?.(item)}
+      <Text size="sm" lineClamp={2}>
+        {getOptionLabel?.(item)}
+      </Text>
     </Combobox.Option>
   ))
 
   const getLabel = () => {
-    if (selectedValue) {
-      return getOptionLabel(selectedValue)
+    if (value) {
+      return getOptionLabel(value)
     }
-    return <Input.Placeholder>{placeholder}</Input.Placeholder>
+    return (
+      <Input.Placeholder>
+        <Text size="sm" truncate="end">
+          {placeholder}
+        </Text>
+      </Input.Placeholder>
+    )
   }
 
   return (
@@ -128,7 +133,6 @@ export const CreatableCombobox = factory<SelectFactory>((_props, ref) => {
       onOptionSubmit={(val) => {
         const nextValue =
           data?.find((item) => getOptionValue(item) === val) ?? null
-        setSelectedValue(nextValue)
         combobox.closeDropdown()
         onChange?.(nextValue)
       }}
@@ -145,12 +149,11 @@ export const CreatableCombobox = factory<SelectFactory>((_props, ref) => {
           rightSection={
             loading ? (
               <Loader size="xs" />
-            ) : selectedValue !== null ? (
+            ) : value !== null ? (
               <CloseButton
                 size="sm"
                 onMouseDown={(event) => event.preventDefault()}
                 onClick={() => {
-                  setSelectedValue(null)
                   onChange?.(null)
                 }}
               />
@@ -159,7 +162,7 @@ export const CreatableCombobox = factory<SelectFactory>((_props, ref) => {
             )
           }
           onClick={() => combobox.toggleDropdown()}
-          rightSectionPointerEvents={selectedValue === null ? 'none' : 'all'}
+          rightSectionPointerEvents={value === null ? 'none' : 'all'}
         >
           {getLabel()}
         </InputBase>

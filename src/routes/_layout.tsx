@@ -47,8 +47,8 @@ function Layout() {
         layout="alt"
         header={{ height: 60, collapsed: !isTablet }}
         navbar={{
-          width: 270,
-          breakpoint: 'md',
+          width: 250,
+          breakpoint: 'lg',
           collapsed: { mobile: !opened },
         }}
         padding="0"
