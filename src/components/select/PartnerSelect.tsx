@@ -23,7 +23,7 @@ export function PartnerSelect(props: PartnerSelectProps) {
 
   return (
     <HookFormCombobox
-      placeholder="Chọn nhà trục..."
+      placeholder="Chọn đối tác..."
       withAsterisk={withAsterisk}
       control={control}
       loadOptions={debounce(promiseOptions, 500)}

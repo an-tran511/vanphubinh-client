@@ -69,7 +69,7 @@ function EditPartner() {
             <Text size="sm" fw={500}>
               Mã đối tác
             </Text>
-            <Text size="md">{data.id}</Text>
+            <Text size="sm">{data.id}</Text>
           </Stack>
           <TextInput
             name="name"
