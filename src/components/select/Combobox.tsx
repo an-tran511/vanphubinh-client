@@ -103,7 +103,7 @@ export const CreatableCombobox = factory<SelectFactory>((_props, ref) => {
       value={getOptionValue?.(item)}
       key={getOptionValue?.(item)}
     >
-      <Text size="sm" lineClamp={2}>
+      <Text size="sm" lineClamp={3}>
         {getOptionLabel?.(item)}
       </Text>
     </Combobox.Option>

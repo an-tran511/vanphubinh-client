@@ -136,7 +136,7 @@ function ListComponent() {
       onCreateHandler={() => navigate({ to: '/moulds/create' })}
       pagination={pagination}
     >
-      <Box px={{ base: 'lg', md: 'lg' }} py="md" bg="white">
+      <Box px="lg" py="md" bg="white">
         <Group>
           <TextInput
             visibleFrom="md"

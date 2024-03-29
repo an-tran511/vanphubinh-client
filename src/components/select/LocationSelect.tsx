@@ -4,16 +4,15 @@ import { getLocationOptions } from '@/apis/location'
 import { Location } from '@/validators/location'
 import { useQueryClient } from '@tanstack/react-query'
 import { HookFormCombobox } from './HookFormCombobox'
+import { CreatableComboboxProps } from './Combobox'
 
-interface LocationSelectProps {
+interface LocationSelectProps extends Partial<CreatableComboboxProps> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   control: Control<any>
   name: string
-  withAsterisk?: boolean
-  label: string
 }
 export function LocationSelect(props: LocationSelectProps) {
-  const { control, name, label, withAsterisk } = props
+  const { control, name, label, withAsterisk, classNames, className } = props
   const queryClient = useQueryClient()
   const promiseOptions = (inputValue: string) =>
     queryClient.ensureQueryData({
@@ -23,6 +22,8 @@ export function LocationSelect(props: LocationSelectProps) {
 
   return (
     <HookFormCombobox
+      classNames={classNames}
+      className={className}
       placeholder="Chọn vị trí..."
       withAsterisk={withAsterisk}
       control={control}

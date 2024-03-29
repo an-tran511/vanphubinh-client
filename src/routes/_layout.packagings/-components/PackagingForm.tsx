@@ -47,7 +47,7 @@ export function PackagingForm(props: PackagingFormProps) {
             Thông tin chung
           </Tabs.Tab>
           <Tabs.Tab value="mould" leftSection={<Cylinder size={16} />}>
-            Trục
+            Trục in
           </Tabs.Tab>
         </Tabs.List>
 

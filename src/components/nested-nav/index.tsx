@@ -13,7 +13,7 @@ const mockdata = [
     initiallyOpened: true,
     links: [
       { label: 'Bao bì', link: '/packagings' },
-      { label: 'Trục', link: '/moulds' },
+      { label: 'Trục in', link: '/moulds' },
     ],
   },
   { label: 'Đối tác', icon: AddressBook, link: '/partners' },

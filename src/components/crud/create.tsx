@@ -94,7 +94,7 @@ export const Create = (props: CreateProps) => {
         </Box>
         {withCommentSection && (
           <Box className={classes.aside} visibleFrom="md">
-            <Card p="0" bg="gray.0">
+            <Card p="sm" bg="gray.0">
               <Group>
                 <Popover
                   width="target"

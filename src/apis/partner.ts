@@ -53,6 +53,6 @@ export const getMouldMakers = async (deps: string | object) => {
 }
 
 export const getMouldMakersOptions = async (deps: string | object) => {
-  const { data } = await getPartners(deps)
+  const { data } = await getMouldMakers(deps)
   return data
 }

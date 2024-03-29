@@ -1,27 +1,10 @@
 .table {
-  th,
-  td {
-    vertical-align: middle;
-  }
   th {
-    border-top: 1px solid var(--mantine-color-gray-3);
-  }
-  tbody {
-    tr {
-      &:last-child {
-        td {
-          border-bottom: none;
-        }
-      }
-    }
+    font-size: rem(12px);
   }
 }
-.header {
-  text-transform: uppercase;
-  font-size: 10px;
-  background-color: var(--mantine-color-blue-0);
-  color: black;
-}
-.root {
-  border: none;
+
+.tfoot {
+  border-top: 1px solid var(--mantine-color-gray-3);
+  padding: rem(12px);
 }

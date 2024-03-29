@@ -2,19 +2,17 @@ import {
   Input,
   boolean,
   minLength,
-  number,
   object,
   string,
-  fallback,
   required,
   merge,
   nullable,
-  omit,
   picklist,
+  pick,
 } from 'valibot'
 import { WarehouseInputSchema } from './warehouse'
 
-const LocationInputSchema = object({
+export const LocationInputSchema = object({
   name: string([minLength(1, 'Trường bắt buộc')]),
   isScrapLocation: boolean(),
   isReturnLocation: boolean(),
@@ -38,11 +36,7 @@ export const CreateLocationInputSchema = merge([
   object({
     parentLocation: nullable(
       merge([
-        omit(LocationInputSchema, [
-          'isReturnLocation',
-          'isScrapLocation',
-          'warehouse',
-        ]),
+        pick(LocationInputSchema, ['name']),
         object({ id: string(), path: string() }),
       ]),
     ),

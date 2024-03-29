@@ -1,6 +1,6 @@
 import { fetchClient } from '@/utils/fetchClient'
 import { ListResponse } from './types'
-import { Mould } from '@/validators/mould'
+import { Mould, MultipleMoulds } from '@/validators/mould'
 import { PickAsRequired } from '@tanstack/react-router'
 
 export const getMoulds = async (deps: string | object) => {
@@ -33,5 +33,13 @@ export const updateMould = async ({
     .url(`/moulds/${id}`)
     .put(packageToUpdate)
     .json<Mould>()
+  return response
+}
+
+export const bulkCreateMoulds = async (data: MultipleMoulds) => {
+  const response = await fetchClient
+    .url('/moulds/bulk')
+    .post(data)
+    .json<{ success: boolean }>()
   return response
 }

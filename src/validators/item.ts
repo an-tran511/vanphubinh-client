@@ -8,7 +8,7 @@ import {
   boolean,
   required,
   optional,
-  omit,
+  pick,
 } from 'valibot'
 import { PartnerInputSchema } from '@/validators/partner'
 import { UomInputSchema } from '@/validators/uom'
@@ -21,19 +21,13 @@ export const ItemInputSchema = object({
     'Trường bắt buộc',
   ),
   customer: nullable(
-    merge([
-      omit(PartnerInputSchema, ['address', 'email', 'notes', 'phone']),
-      object({ id: string() }),
-    ]),
+    merge([pick(PartnerInputSchema, ['name']), object({ id: string() })]),
   ),
   itemCategory: nullable(
     merge([ItemCategoryInputSchema, object({ id: string() })]),
   ),
   defaultSupplier: nullable(
-    merge([
-      omit(PartnerInputSchema, ['address', 'email', 'notes', 'phone']),
-      object({ id: string() }),
-    ]),
+    merge([pick(PartnerInputSchema, ['name']), object({ id: string() })]),
   ),
   notes: optional(string(), ''),
   isStockable: boolean(),

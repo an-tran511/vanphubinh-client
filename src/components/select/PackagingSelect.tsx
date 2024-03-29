@@ -1,35 +1,37 @@
 import { Control } from 'react-hook-form'
 import debounce from 'debounce-promise'
-import { getMouldOptions } from '@/apis/mould'
-import { Mould } from '@/validators/mould'
 import { HookFormCombobox } from './HookFormCombobox'
 import { useQueryClient } from '@tanstack/react-query'
 import { CreatableComboboxProps } from './Combobox'
+import { getPackagingOptions } from '@/apis/packaging'
+import { Packaging } from '@/validators/packaging'
 
-interface MouldSelectProps extends Partial<CreatableComboboxProps> {
+interface PackagingSelectProps extends Partial<CreatableComboboxProps> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   control: Control<any>
   name: string
 }
-export function MouldSelect(props: MouldSelectProps) {
-  const { control, name, label, withAsterisk } = props
+export function PackagingSelect(props: PackagingSelectProps) {
+  const { control, name, label, withAsterisk, className, classNames } = props
   const queryClient = useQueryClient()
   const promiseOptions = (inputValue: string) =>
     queryClient.ensureQueryData({
-      queryKey: ['moulds', inputValue],
-      queryFn: () => getMouldOptions({ searchValue: inputValue }),
+      queryKey: ['packagings', inputValue],
+      queryFn: () => getPackagingOptions({ searchValue: inputValue }),
     })
 
   return (
     <HookFormCombobox
-      placeholder="Chọn trục..."
+      placeholder="Chọn bao bì..."
       withAsterisk={withAsterisk}
       control={control}
       loadOptions={debounce(promiseOptions, 500)}
       name={name}
       label={label}
-      getOptionLabel={(option: Mould) => option.id + ' - ' + option.name}
-      getOptionValue={(option: Mould) => option.id}
+      className={className}
+      classNames={classNames}
+      getOptionLabel={(option: Packaging) => option.name}
+      getOptionValue={(option: Packaging) => option.id}
     />
   )
 }
