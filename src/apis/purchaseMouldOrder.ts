@@ -18,7 +18,7 @@ export const createMultiPurchaseMouldOrder = async (
   data: MultiplePurchaseMouldOrderInput,
 ) => {
   const response = await fetchClient
-    .url('/purchase-mould-orders')
+    .url('/purchase-mould-orders/bulk')
     .post(data)
     .json<PurchaseMouldOrder>()
   return response

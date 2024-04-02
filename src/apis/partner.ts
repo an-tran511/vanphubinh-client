@@ -11,11 +11,6 @@ export const getPartners = async (deps: string | object) => {
   return response
 }
 
-export const getPartnerOptions = async (deps: string | object) => {
-  const { data } = await getPartners(deps)
-  return data
-}
-
 export const createPartner = async (data: object) => {
   const response = await fetchClient.url('/partners').post(data).json<Partner>()
   return response

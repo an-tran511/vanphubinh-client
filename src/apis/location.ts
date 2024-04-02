@@ -11,11 +11,6 @@ export const getLocations = async (deps: string | object) => {
   return response
 }
 
-export const getLocationOptions = async (deps: string | object) => {
-  const { data } = await getLocations(deps)
-  return data
-}
-
 export const findLocationById = async (id: string) => {
   const response = await fetchClient
     .url(`/locations/${id}`)

@@ -19,6 +19,7 @@ import { Route as LayoutPartnersIndexImport } from './routes/_layout.partners/in
 import { Route as LayoutPackagingsIndexImport } from './routes/_layout.packagings/index'
 import { Route as LayoutMouldsIndexImport } from './routes/_layout.moulds/index'
 import { Route as LayoutLocationsIndexImport } from './routes/_layout.locations/index'
+import { Route as LayoutPurchaseMouldOrdersCreateImport } from './routes/_layout.purchase-mould-orders/create'
 import { Route as LayoutPartnersIdImport } from './routes/_layout.partners/$id'
 import { Route as LayoutPackagingsCreateImport } from './routes/_layout.packagings/create'
 import { Route as LayoutPackagingsIdImport } from './routes/_layout.packagings/$id'
@@ -66,6 +67,12 @@ const LayoutLocationsIndexRoute = LayoutLocationsIndexImport.update({
   path: '/locations/',
   getParentRoute: () => LayoutRoute,
 } as any)
+
+const LayoutPurchaseMouldOrdersCreateRoute =
+  LayoutPurchaseMouldOrdersCreateImport.update({
+    path: '/purchase-mould-orders/create',
+    getParentRoute: () => LayoutRoute,
+  } as any)
 
 const LayoutPartnersIdRoute = LayoutPartnersIdImport.update({
   path: '/partners/$id',
@@ -119,6 +126,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutPartnersIdImport
       parentRoute: typeof LayoutImport
     }
+    '/_layout/purchase-mould-orders/create': {
+      preLoaderRoute: typeof LayoutPurchaseMouldOrdersCreateImport
+      parentRoute: typeof LayoutImport
+    }
     '/_layout/locations/': {
       preLoaderRoute: typeof LayoutLocationsIndexImport
       parentRoute: typeof LayoutImport
@@ -151,6 +162,7 @@ export const routeTree = rootRoute.addChildren([
     LayoutPackagingsIdRoute,
     LayoutPackagingsCreateRoute,
     LayoutPartnersIdRoute,
+    LayoutPurchaseMouldOrdersCreateRoute,
     LayoutLocationsIndexRoute,
     LayoutMouldsIndexRoute,
     LayoutPackagingsIndexRoute,

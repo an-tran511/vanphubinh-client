@@ -11,11 +11,6 @@ export const getWarehouses = async (deps: string | object) => {
   return response
 }
 
-export const getWarehouseOptions = async (deps: string | object) => {
-  const { data } = await getWarehouses(deps)
-  return data
-}
-
 export const findWarehouseById = async (id: string) => {
   const response = await fetchClient
     .url(`/warehouses/${id}`)

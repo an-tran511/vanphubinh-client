@@ -1,6 +1,6 @@
 import { Control } from 'react-hook-form'
 import debounce from 'debounce-promise'
-import { getMouldOptions } from '@/apis/mould'
+import { getMoulds } from '@/apis/mould'
 import { Mould } from '@/validators/mould'
 import { HookFormCombobox } from './HookFormCombobox'
 import { useQueryClient } from '@tanstack/react-query'
@@ -12,13 +12,24 @@ interface MouldSelectProps extends Partial<CreatableComboboxProps> {
   name: string
 }
 export function MouldSelect(props: MouldSelectProps) {
-  const { control, name, label, withAsterisk } = props
+  const {
+    control,
+    name,
+    label,
+    withAsterisk,
+    className,
+    classNames,
+    error,
+    rightSection,
+  } = props
   const queryClient = useQueryClient()
   const promiseOptions = (inputValue: string) =>
-    queryClient.ensureQueryData({
-      queryKey: ['moulds', inputValue],
-      queryFn: () => getMouldOptions({ searchValue: inputValue }),
-    })
+    queryClient
+      .ensureQueryData({
+        queryKey: ['moulds', { page: 1, searchValue: inputValue }],
+        queryFn: () => getMoulds({ searchValue: inputValue }),
+      })
+      .then((data) => data.data)
 
   return (
     <HookFormCombobox
@@ -28,8 +39,12 @@ export function MouldSelect(props: MouldSelectProps) {
       loadOptions={debounce(promiseOptions, 500)}
       name={name}
       label={label}
-      getOptionLabel={(option: Mould) => option.id + ' - ' + option.name}
+      getOptionLabel={(option: Mould) => option.name}
       getOptionValue={(option: Mould) => option.id}
+      className={className}
+      classNames={classNames}
+      error={error}
+      rightSection={rightSection}
     />
   )
 }

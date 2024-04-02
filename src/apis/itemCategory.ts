@@ -11,10 +11,6 @@ export const getItemCategories = async (deps: string | object) => {
   return response
 }
 
-export const getItemCategoryOptions = async (deps: string | object) => {
-  const { data } = await getItemCategories(deps)
-  return data
-}
 export const createItemCategory = async (data: object) => {
   const response = await fetchClient
     .url('/item-categories')

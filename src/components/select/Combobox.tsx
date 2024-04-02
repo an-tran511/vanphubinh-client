@@ -15,10 +15,12 @@ import {
 } from '@mantine/core'
 import classes from './Combobox.module.css'
 
-export type CreatableComboboxProps = Omit<SelectProps, 'onChange' | 'ref'> & {
+export type CreatableComboboxProps = Omit<
+  Partial<SelectProps>,
+  'onChange' | 'ref'
+> & {
   label?: string
   withAsterisk?: boolean
-  data?: unknown[]
   getOptionValue: (item: any) => string
   getOptionLabel: (item: any) => string
   loadOptions: (inputValue: string) => Promise<unknown[]>
@@ -52,10 +54,11 @@ export const CreatableCombobox = factory<SelectFactory>((_props, ref) => {
     classNames,
     placeholder,
     error,
+    rightSection,
   } = props
   const [search, setSearch] = useState(searchValue)
   const [shouldSearch, setShouldSearch] = useState(false)
-  const [data, setData] = useState<unknown[]>([])
+  const [data, setData] = useState<any[]>([])
   const [loading, setLoading] = useState(false)
   const [initialOptions, setInitialOptions] = useState<unknown[]>([])
 
@@ -98,24 +101,28 @@ export const CreatableCombobox = factory<SelectFactory>((_props, ref) => {
     }
   }, [search, shouldSearch, loadOptions])
 
-  const options = data.map((item) => (
+  console.log(data)
+  const options = data?.map((item) => (
     <Combobox.Option
       value={getOptionValue?.(item)}
       key={getOptionValue?.(item)}
     >
-      <Text size="sm" lineClamp={3}>
+      <Text size="sm" lineClamp={2}>
         {getOptionLabel?.(item)}
       </Text>
     </Combobox.Option>
   ))
-
   const getLabel = () => {
     if (value) {
-      return getOptionLabel(value)
+      return (
+        <Text size="sm" lineClamp={1}>
+          {getOptionLabel(value)}
+        </Text>
+      )
     }
     return (
       <Input.Placeholder>
-        <Text size="sm" truncate="end">
+        <Text size="sm" lineClamp={1}>
           {placeholder}
         </Text>
       </Input.Placeholder>
@@ -138,7 +145,7 @@ export const CreatableCombobox = factory<SelectFactory>((_props, ref) => {
       }}
     >
       <Combobox.Target>
-        <InputBase
+        <InputBase<any>
           error={error}
           classNames={classNames}
           label={label ?? ''}
@@ -149,7 +156,7 @@ export const CreatableCombobox = factory<SelectFactory>((_props, ref) => {
           rightSection={
             loading ? (
               <Loader size="xs" />
-            ) : value !== null ? (
+            ) : value ? (
               <CloseButton
                 size="sm"
                 onMouseDown={(event) => event.preventDefault()}
@@ -157,12 +164,16 @@ export const CreatableCombobox = factory<SelectFactory>((_props, ref) => {
                   onChange?.(null)
                 }}
               />
+            ) : error ? (
+              rightSection
             ) : (
               <Combobox.Chevron />
             )
           }
           onClick={() => combobox.toggleDropdown()}
-          rightSectionPointerEvents={value === null ? 'none' : 'all'}
+          rightSectionPointerEvents={
+            !value ? (error ? 'auto' : 'none') : 'auto'
+          }
         >
           {getLabel()}
         </InputBase>

@@ -1,6 +1,6 @@
 import { Control } from 'react-hook-form'
 import debounce from 'debounce-promise'
-import { getPartnerOptions } from '@/apis/partner'
+import { getPartners } from '@/apis/partner'
 import { Partner } from '@/validators/partner'
 import { HookFormCombobox } from './HookFormCombobox'
 import { useQueryClient } from '@tanstack/react-query'
@@ -18,10 +18,12 @@ export function PartnerSelect(props: PartnerSelectProps) {
   const { control, name, label, withAsterisk, classNames, className } = props
   const queryClient = useQueryClient()
   const promiseOptions = (inputValue: string) =>
-    queryClient.ensureQueryData({
-      queryKey: ['partners', inputValue],
-      queryFn: () => getPartnerOptions({ searchValue: inputValue }),
-    })
+    queryClient
+      .ensureQueryData({
+        queryKey: ['partners', { page: 1, searchValue: inputValue }],
+        queryFn: () => getPartners({ page: 1, searchValue: inputValue }),
+      })
+      .then((data) => data.data)
 
   return (
     <HookFormCombobox

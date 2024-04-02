@@ -3,7 +3,7 @@ import debounce from 'debounce-promise'
 import { HookFormCombobox } from './HookFormCombobox'
 import { useQueryClient } from '@tanstack/react-query'
 import { CreatableComboboxProps } from './Combobox'
-import { getPackagingOptions } from '@/apis/packaging'
+import { getPackagings } from '@/apis/packaging'
 import { Packaging } from '@/validators/packaging'
 
 interface PackagingSelectProps extends Partial<CreatableComboboxProps> {
@@ -15,10 +15,12 @@ export function PackagingSelect(props: PackagingSelectProps) {
   const { control, name, label, withAsterisk, className, classNames } = props
   const queryClient = useQueryClient()
   const promiseOptions = (inputValue: string) =>
-    queryClient.ensureQueryData({
-      queryKey: ['packagings', inputValue],
-      queryFn: () => getPackagingOptions({ searchValue: inputValue }),
-    })
+    queryClient
+      .ensureQueryData({
+        queryKey: ['packagings', { page: 1, searchValue: inputValue }],
+        queryFn: () => getPackagings({ searchValue: inputValue }),
+      })
+      .then((data) => data.data)
 
   return (
     <HookFormCombobox

@@ -1,42 +1,56 @@
 import {
   Input,
-  nullable,
   number,
   object,
   string,
   fallback,
-  date,
   picklist,
   array,
-  omit,
   required,
+  pick,
+  merge,
+  minValue,
 } from 'valibot'
+import { MouldInputSchema } from './mould'
+import { PartnerInputSchema } from './partner'
 
 export const PurchaseMouldOrderInputSchema = object({
   mould: required(
-    object({ id: string(), name: string() }),
-    'Trục không được để trống',
+    merge([
+      pick(MouldInputSchema, ['name', 'defaultSupplier']),
+      object({ id: string() }),
+    ]),
+    'Trường bắt buộc',
   ),
-  supplier: nullable(object({ id: string(), name: string() })),
-  quantity: fallback(number(), 1),
-  createdDate: date(),
-  type: picklist(['new', 'repair', 'replace']),
-  notes: string(),
+  supplier: required(
+    merge([pick(PartnerInputSchema, ['name']), object({ id: string() })]),
+    'Trường bắt buộc',
+  ),
+  quantity: number([minValue(1, 'Số lượng phải lớn hơn 0')]),
+  type: picklist(['new', 'repair', 'replace', 'warranty']),
+  notes: fallback(string(), ''),
 })
 
 export const MultiplePurchaseMouldOrderInputSchema = object({
-  supplier: required(
-    object({ id: string(), name: string() }),
-    'Nhà cung cấp không được để trống',
-  ),
-  createdDate: date(),
-  orders: array(omit(PurchaseMouldOrderInputSchema, ['supplier'])),
+  orders: array(PurchaseMouldOrderInputSchema),
 })
 
-export type MultiplePurchaseMouldOrderInput = Input<
-  typeof MultiplePurchaseMouldOrderInputSchema
->
+export type MultiplePurchaseMouldOrderInput = Omit<
+  Input<typeof MultiplePurchaseMouldOrderInputSchema>,
+  'orders'
+> & {
+  orders: PurchaseMouldOrderInput[]
+}
+
+type PurchaseMouldOrderInput = Omit<
+  Input<typeof PurchaseMouldOrderInputSchema>,
+  'mould' | 'supplier'
+> & {
+  mould?: Input<typeof PurchaseMouldOrderInputSchema>['mould']
+  supplier?: Input<typeof PurchaseMouldOrderInputSchema>['supplier']
+}
 
 export type PurchaseMouldOrder = Input<typeof PurchaseMouldOrderInputSchema> & {
   id: string
+  status: 'new' | 'mould_issue' | 'cancelled' | 'ongoing' | 'completed'
 }

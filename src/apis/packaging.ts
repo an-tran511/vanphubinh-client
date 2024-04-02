@@ -12,11 +12,6 @@ export const getPackagings = async (deps: string | object) => {
   return response
 }
 
-export const getPackagingOptions = async (deps: string | object) => {
-  const { data } = await getPackagings(deps)
-  return data
-}
-
 export const createPackaging = async (data: Packaging) => {
   const response = await fetchClient
     .url('/packagings')

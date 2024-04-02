@@ -1,6 +1,6 @@
 import { Control } from 'react-hook-form'
 import debounce from 'debounce-promise'
-import { getUomOptions } from '@/apis/uom'
+import { getUoms } from '@/apis/uom'
 import { Uom } from '@/validators/uom'
 import { useQueryClient } from '@tanstack/react-query'
 import { HookFormCombobox } from './HookFormCombobox'
@@ -16,10 +16,12 @@ export function UomSelect(props: UomSelectProps) {
   const { control, name, label, withAsterisk } = props
   const queryClient = useQueryClient()
   const promiseOptions = (inputValue: string) =>
-    queryClient.ensureQueryData({
-      queryKey: ['uoms', inputValue],
-      queryFn: () => getUomOptions({ searchValue: inputValue }),
-    })
+    queryClient
+      .ensureQueryData({
+        queryKey: ['uoms', { page: 1, searchValue: inputValue }],
+        queryFn: () => getUoms({ searchValue: inputValue }),
+      })
+      .then((data) => data.data)
 
   return (
     <HookFormCombobox

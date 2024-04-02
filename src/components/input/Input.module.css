@@ -1,13 +1,12 @@
 .root {
-  position: relative;
-  margin-top: rem(5px);
+  height: 100%;
+  border: 1px solid var(--input-bd);
 }
 
 .input {
   border: none;
+  height: 100%;
   border-radius: 0;
-  white-space: nowrap;
-  height: rem(40px);
 
   &:hover {
     background-color: var(--mantine-color-blue-0);
@@ -19,10 +18,48 @@
   /* background-color: var(--mantine-color-body); */
 }
 
+.borderInput {
+  word-wrap: none;
+  height: 100%;
+
+  &:hover {
+    background-color: var(--mantine-color-blue-0);
+  }
+  &:focus,
+  &:focus-within {
+    border: rem(1px) solid var(--input-bd);
+  }
+  /* background-color: var(--mantine-color-body); */
+}
+
+.fullHeightWrapper {
+  height: 100%;
+}
+
+.maxContentWrapper {
+  height: max-content;
+}
+
 .wrapper {
   --input-height-xs: rem(26px);
   --input-height-sm: rem(32px);
   --input-height-md: rem(38px);
   --input-height-lg: rem(44px);
   --input-height-xl: rem(50px);
+
+  &[data-multiline] {
+    --input-padding-y-xs: rem(4.5px);
+    --input-padding-y-sm: rem(5.5px);
+    --input-padding-y-md: rem(7px);
+    --input-padding-y-lg: rem(9.5px);
+    --input-padding-y-xl: rem(13px);
+
+    --input-size: rem(4.5px);
+    --input-line-height: var(4.5px);
+    --input-padding-y: var(--input-padding-y-sm);
+  }
+}
+
+.minContentWrapper {
+  height: min-content;
 }

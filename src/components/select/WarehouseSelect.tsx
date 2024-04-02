@@ -1,6 +1,6 @@
 import { Control } from 'react-hook-form'
 import debounce from 'debounce-promise'
-import { getWarehouseOptions } from '@/apis/warehouse'
+import { getWarehouses } from '@/apis/warehouse'
 import { Warehouse } from '@/validators/warehouse'
 import { HookFormCombobox } from './HookFormCombobox'
 import { useQueryClient } from '@tanstack/react-query'
@@ -16,10 +16,12 @@ export function WarehouseSelect(props: WarehouseSelectProps) {
   const { control, name, label, withAsterisk } = props
   const queryClient = useQueryClient()
   const promiseOptions = (inputValue: string) =>
-    queryClient.ensureQueryData({
-      queryKey: ['warehouses', inputValue],
-      queryFn: () => getWarehouseOptions({ searchValue: inputValue }),
-    })
+    queryClient
+      .ensureQueryData({
+        queryKey: ['warehouses', { page: 1, searchValue: inputValue }],
+        queryFn: () => getWarehouses({ searchValue: inputValue }),
+      })
+      .then((data) => data.data)
 
   return (
     <HookFormCombobox

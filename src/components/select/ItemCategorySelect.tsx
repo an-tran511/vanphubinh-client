@@ -1,6 +1,6 @@
 import { Control } from 'react-hook-form'
 import debounce from 'debounce-promise'
-import { getItemCategoryOptions } from '@/apis/itemCategory'
+import { getItemCategories } from '@/apis/itemCategory'
 import { ItemCategory } from '@/validators/itemCategory'
 import { HookFormCombobox } from './HookFormCombobox'
 import { useQueryClient } from '@tanstack/react-query'
@@ -16,10 +16,13 @@ export function ItemCategorySelect(props: ItemCategorySelectProps) {
   const { control, name, label, withAsterisk } = props
   const queryClient = useQueryClient()
   const promiseOptions = (inputValue: string) =>
-    queryClient.ensureQueryData({
-      queryKey: ['item-categories', inputValue],
-      queryFn: () => getItemCategoryOptions({ searchValue: inputValue }),
-    })
+    queryClient
+      .ensureQueryData({
+        queryKey: ['item-categories', { page: 1, searchValue: inputValue }],
+        queryFn: () => getItemCategories({ searchValue: inputValue }),
+      })
+      .then((data) => data.data)
+
   return (
     <HookFormCombobox
       placeholder="Chọn nhóm hàng hoá..."

@@ -14,22 +14,23 @@ import {
   SimpleGrid,
   Tooltip,
 } from '@mantine/core'
-import { Control, UseFormGetValues, useFieldArray } from 'react-hook-form'
-import { NumberInput, TextInput } from 'react-hook-form-mantine'
+import { useFieldArray, useFormContext } from 'react-hook-form'
+import { NumberInput, TextInput, Textarea } from 'react-hook-form-mantine'
 import classes from '@/components/input/Input.module.css'
 import { LocationSelect } from '@/components/select/LocationSelect'
 import tableClasses from '@/components/table/Table.module.css'
 import { MouldMakerSelect } from '@/components/select/MouldMakerSelect'
 import { Trash, WarningCircle } from '@phosphor-icons/react'
 import { PackagingSelect } from '@/components/select/PackagingSelect'
+import { MultipleMoulds } from '@/validators/mould'
 
-interface MouldCreateFormProps {
-  control: Control<any>
-  getValues: UseFormGetValues<any>
-  errors?: any
-}
-export const MouldCreateForm = (props: MouldCreateFormProps) => {
-  const { control, getValues, errors } = props
+export const MouldCreateForm = () => {
+  const {
+    control,
+    getValues,
+    formState: { errors },
+  } = useFormContext<MultipleMoulds>()
+
   const { fields, append, remove } = useFieldArray({
     control: control,
     name: 'moulds',
@@ -41,7 +42,7 @@ export const MouldCreateForm = (props: MouldCreateFormProps) => {
       width: '30%',
     },
     {
-      title: 'Bao bì    ',
+      title: 'Bao bì',
       width: '30%',
     },
     {
@@ -61,103 +62,19 @@ export const MouldCreateForm = (props: MouldCreateFormProps) => {
     },
   ]
 
-  const body = []
-  for (let i = 0; i < fields.length; i++) {
-    body.push([
-      <Group grow>
-        <TextInput
-          control={control}
-          name={`moulds.${i}.name`}
-          radius="md"
-          error={!!errors?.moulds?.[i]?.name}
-          rightSection={
-            errors?.moulds?.[i]?.name && (
-              <Tooltip label={errors?.moulds?.[i]?.name?.message}>
-                <WarningCircle size={16} />
-              </Tooltip>
-            )
-          }
-          classNames={{
-            input: classes.input,
-          }}
-        />
-      </Group>,
-      <PackagingSelect
-        control={control}
-        name={`moulds.${i}.packaging`}
-        error={!!errors?.moulds?.[i]?.packaging}
-        rightSection={
-          errors?.moulds?.[i]?.name && (
-            <Tooltip label={errors?.moulds?.[i]?.packaging?.message}>
-              <WarningCircle size={16} />
-            </Tooltip>
-          )
-        }
-        classNames={{
-          input: classes.input,
-        }}
-      />,
-      <TextInput
-        control={control}
-        name={`moulds.${i}.dimension`}
-        error={!!errors?.moulds?.[i]?.dimension}
-        rightSection={
-          errors?.moulds?.[i]?.dimension && (
-            <Tooltip label={errors?.moulds?.[i]?.dimension?.message}>
-              <WarningCircle size={16} />
-            </Tooltip>
-          )
-        }
-        radius="md"
-        classNames={{
-          input: classes.input,
-        }}
-      />,
-      <NumberInput
-        control={control}
-        name={`moulds.${i}.numberOfMoulds`}
-        error={!!errors?.moulds?.[i]?.numberOfMoulds}
-        hideControls
-        classNames={{
-          input: classes.input,
-        }}
-        rightSection={
-          errors?.moulds?.[i]?.numberOfMoulds && (
-            <Tooltip label={errors?.moulds?.[i]?.numberOfMoulds?.message}>
-              <WarningCircle size={16} />
-            </Tooltip>
-          )
-        }
-      />,
-      <LocationSelect
-        control={control}
-        name={`moulds.${i}.location`}
-        classNames={{
-          input: classes.input,
-        }}
-      />,
-      <Center>
-        <ActionIcon
-          aria-label="Remove row"
-          variant="transparent"
-          color="red"
-          bg="white"
-          disabled={fields.length === 1}
-        >
-          <Trash
-            onClick={() => {
-              remove(i)
-            }}
-          />
-        </ActionIcon>
-      </Center>,
-    ])
-  }
-
   return (
     <Card shadow="0" radius="0" px={{ base: 'md', md: 'lg' }}>
       <SimpleGrid cols={{ base: 1, md: 2 }}>
-        <PartnerSelect control={control} name={`customer`} label="Khách hàng" />
+        <PartnerSelect
+          control={control}
+          name={`customer`}
+          label="Khách hàng"
+          classNames={{
+            root: classes.root,
+            wrapper: classes.wrapper,
+            input: classes.borderInput,
+          }}
+        />
         <MouldMakerSelect
           control={control}
           name="defaultSupplier"
@@ -179,6 +96,7 @@ export const MouldCreateForm = (props: MouldCreateFormProps) => {
         >
           <Table
             withColumnBorders
+            verticalSpacing="xs"
             classNames={{
               table: tableClasses.table,
               thead: tableClasses.thead,
@@ -195,24 +113,132 @@ export const MouldCreateForm = (props: MouldCreateFormProps) => {
               </Table.Tr>
             </Table.Thead>
             <Table.Tbody>
-              {body.map((row, index) => (
-                <Table.Tr key={index}>
-                  {row.map((cell, index) => (
-                    <Table.Td
-                      styles={{
-                        td: {
-                          padding: '0',
-                        },
+              {fields.map((field, i) => (
+                <Table.Tr key={field.id}>
+                  <Table.Td className="p-0">
+                    <Textarea
+                      autosize
+                      control={control}
+                      minRows={1}
+                      maxRows={3}
+                      name={`moulds.${i}.name`}
+                      radius="md"
+                      error={!!errors?.moulds?.[i]?.name}
+                      rightSection={
+                        errors?.moulds?.[i]?.name && (
+                          <Tooltip label={errors?.moulds?.[i]?.name?.message}>
+                            <WarningCircle size={16} />
+                          </Tooltip>
+                        )
+                      }
+                      classNames={{
+                        root: classes.root,
+                        wrapper: classes.wrapper,
+                        input: classes.input,
                       }}
-                      key={index}
-                    >
-                      {cell}
-                    </Table.Td>
-                  ))}
+                    />
+                  </Table.Td>
+                  <Table.Td className="p-0">
+                    <PackagingSelect
+                      control={control}
+                      name={`moulds.${i}.packaging`}
+                      error={!!errors?.moulds?.[i]?.packaging}
+                      rightSection={
+                        errors?.moulds?.[i]?.name && (
+                          <Tooltip
+                            label={errors?.moulds?.[i]?.packaging?.message}
+                          >
+                            <WarningCircle size={16} />
+                          </Tooltip>
+                        )
+                      }
+                      classNames={{
+                        root: classes.root,
+                        wrapper: classes.fullHeightWrapper,
+                        input: classes.input,
+                      }}
+                    />
+                  </Table.Td>
+                  <Table.Td className="p-0">
+                    <TextInput
+                      control={control}
+                      name={`moulds.${i}.dimension`}
+                      error={!!errors?.moulds?.[i]?.dimension}
+                      rightSection={
+                        errors?.moulds?.[i]?.dimension && (
+                          <Tooltip
+                            label={errors?.moulds?.[i]?.dimension?.message}
+                          >
+                            <WarningCircle size={16} />
+                          </Tooltip>
+                        )
+                      }
+                      radius="md"
+                      classNames={{
+                        root: classes.root,
+                        wrapper: classes.fullHeightWrapper,
+                        input: classes.input,
+                      }}
+                    />
+                  </Table.Td>
+                  <Table.Td className="p-0">
+                    <NumberInput
+                      control={control}
+                      name={`moulds.${i}.numberOfMoulds`}
+                      error={!!errors?.moulds?.[i]?.numberOfMoulds}
+                      hideControls
+                      classNames={{
+                        root: classes.root,
+                        wrapper: classes.fullHeightWrapper,
+                        input: classes.input,
+                      }}
+                      rightSection={
+                        errors?.moulds?.[i]?.numberOfMoulds && (
+                          <Tooltip
+                            label={errors?.moulds?.[i]?.numberOfMoulds?.message}
+                          >
+                            <WarningCircle size={16} />
+                          </Tooltip>
+                        )
+                      }
+                    />
+                  </Table.Td>
+                  <Table.Td className="p-0">
+                    <LocationSelect
+                      control={control}
+                      name={`moulds.${i}.location`}
+                      classNames={{
+                        root: classes.root,
+                        wrapper: classes.fullHeightWrapper,
+                        input: classes.input,
+                      }}
+                    />
+                  </Table.Td>
+                  <Table.Td className="p-0">
+                    <Center>
+                      <ActionIcon
+                        aria-label="Remove row"
+                        variant="transparent"
+                        color="red"
+                        bg="white"
+                        disabled={fields.length === 1}
+                      >
+                        <Trash
+                          onClick={() => {
+                            remove(i)
+                          }}
+                        />
+                      </ActionIcon>
+                    </Center>
+                  </Table.Td>
                 </Table.Tr>
               ))}
             </Table.Tbody>
-            <Table.Tfoot>
+            <Table.Tfoot
+              style={{
+                borderBottom: 'none',
+              }}
+            >
               <Table.Tr>
                 <Table.Td>
                   <Group gap="lg">

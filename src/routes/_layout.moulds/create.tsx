@@ -5,7 +5,7 @@ import { MouldCreateForm } from './-components/MouldCreateForm'
 import { valibotResolver } from '@hookform/resolvers/valibot'
 import { MultipleMoulds, MultipleMouldsInputSchema } from '@/validators/mould'
 import { useMutation } from '@tanstack/react-query'
-import { bulkCreateMoulds } from '@/apis/mould'
+import { storeManyMoulds } from '@/apis/mould'
 import { toast } from 'sonner'
 
 export const Route = createFileRoute('/_layout/moulds/create')({
@@ -16,7 +16,7 @@ function CreateComponent() {
   const navigate = useNavigate({ from: '/moulds/create' })
   //Mutation
   const { mutate, isPending } = useMutation({
-    mutationFn: bulkCreateMoulds,
+    mutationFn: storeManyMoulds,
     onSuccess: () => {
       navigate({ to: '/moulds' })
       toast.success('Trục đã được tạo thành công')
@@ -54,11 +54,7 @@ function CreateComponent() {
         }}
       >
         <Create title="Tạo trục in" savingState={isPending}>
-          <MouldCreateForm
-            control={methods.control}
-            getValues={methods.getValues}
-            errors={methods.formState.errors}
-          />
+          <MouldCreateForm />
         </Create>
       </form>
     </FormProvider>

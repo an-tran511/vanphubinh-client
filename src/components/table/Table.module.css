@@ -1,10 +1,20 @@
 .table {
+  /* height: 100%; */
   th {
     font-size: rem(12px);
   }
 }
 
 .tfoot {
-  border-top: 1px solid var(--mantine-color-gray-3);
-  padding: rem(12px);
+  tr {
+    border-top: 1px solid var(--mantine-color-gray-3);
+    border-bottom: none;
+    td {
+      padding: 5px 10px;
+    }
+  }
+}
+
+.td {
+  padding: 0;
 }

@@ -1,5 +1,11 @@
 import { ScrollArea, rem, Image, Center } from '@mantine/core'
-import { AddressBook, Gauge, Package, Warehouse } from '@phosphor-icons/react'
+import {
+  AddressBook,
+  Gauge,
+  Package,
+  Warehouse,
+  Cylinder,
+} from '@phosphor-icons/react'
 import LinksGroup from '@/components/links-group'
 import classes from './NavbarNested.module.css'
 import logo from '@/assets/logo.png'
@@ -7,6 +13,7 @@ import { UserButton } from '@/components/user-button'
 
 const mockdata = [
   { label: 'Bảng điều khiển', icon: Gauge, link: '/' },
+  { label: 'Quản lý trục', icon: Cylinder, link: '/purchase-mould-orders' },
   {
     label: 'Hàng hoá',
     icon: Package,
